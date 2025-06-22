@@ -4,7 +4,7 @@ import { Button } from './ui/button'
 const Navbar = () => {
   return (
     <main>
-      <div className='grid grid-cols-2 p-6 items-center'>
+      <div className='grid grid-cols-2 p-6 items-center bg-[#1C1E53] text-white'>
         <div className='justify-self-center'>
             <ul>
                 <li>
@@ -17,7 +17,7 @@ const Navbar = () => {
                 <li>Home</li>
                 <li>About Us</li>
                 <li>Services</li>
-                <Button className='bg-green-800'><li>Contact Us</li></Button>
+                <Button className='bg-[#4044bc]'><li>Contact Us</li></Button>
             </ul>
         </div>
       </div>
