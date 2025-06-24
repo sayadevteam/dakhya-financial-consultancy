@@ -1,16 +1,21 @@
 import React from 'react'
 import { Button } from './ui/button'
 import { ChartArea, StopCircle } from 'lucide-react'
+import Image from 'next/image'
 
 const Navbar = () => {
   return (
     <main>
-      <div className='grid grid-cols-2 p-6 items-center text-black'>
+      <div className='bg-gray-100 grid grid-cols-2 items-center text-black'>
         <div className='justify-self-center pr-64 font-extrabold'>
             <ul>
-                <l className='flex text-xl'>
-                   Dakhya Financial Consultancy
-                </l>
+                <li className='flex text-xl'>
+                   <Image
+                    src={"/Logo.png"}
+                    height={120}
+                    width={120}
+                   />
+                </li>
             </ul>
         </div>
         <div className='justify-self-center'>
