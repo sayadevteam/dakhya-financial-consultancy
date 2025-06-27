@@ -17,8 +17,8 @@ const Navbar = () => {
         <div className='justify-self-center'>
             <ul className='flex gap-7 items-center cursor-pointer'>
                 <li>Home</li>
-                <li>About Us</li>
                 <li>Services</li>
+                <li>About Us</li>
                 <Button className='bg-[#1C1E53] hover:bg-[#C9DAF1] hover:text-black cursor-pointer'><li>Contact Us</li></Button>
             </ul>
         </div>

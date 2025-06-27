@@ -79,7 +79,7 @@ const HomePage = () => {
 
   return (
     <div className='min-h-screen flex items-center justify-center p-4'>
-      <div className='max-w-7xl w-full flex items-center'>
+      <div className='max-w-8xl ml-10 w-full flex items-center'>
         {/* Left Content Section */}
         <div 
           className='flex-1 pr-16 mb-30'
@@ -152,7 +152,7 @@ const HomePage = () => {
         
         {/* Right Image Section */}
         <div 
-          className='flex justify-center mb-30'
+          className='flex justify-center mb-30 ml-40'
           style={{
             animation: isLoaded ? 'fadeInRight 1s ease-out 0.5s both' : 'none',
             opacity: isLoaded ? 1 : 0
@@ -163,12 +163,12 @@ const HomePage = () => {
           >
             {/* Professional Image */}
             <img 
-              src="/business.png"
+              src="/landing.png"
               alt="Professional consultation"
-              width="200%"
-              className='rounded-2xl transition-shadow duration-300'
+              width="150%"
+              className='rounded-2xl transition-shadow duration-300 relative'
               style={{
-                animation: isLoaded ? 'fadeIn 1.5s ease-out 2.5s both' : 'none',
+                animation: isLoaded ? 'fadeIn 2.8s ease-out 2.5s both' : 'none',
                 opacity: isLoaded ? 1 : 0
               }}
             />
