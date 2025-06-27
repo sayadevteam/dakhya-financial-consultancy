@@ -1,9 +1,10 @@
+import Link from 'next/link'
 import React from 'react'
 
 const Footer = () => {
   return (
     <footer className="bg-[#131314] text-gray-300 py-6">
-      <div className="flex justify-around max-w-5xl mx-auto flex-wrap">
+      <div className="flex justify-around max-w-5xl mx-auto flex-wrap mt-20">
         <div className="mb-4">
           <h3 className="text-lg font-semibold">Dakhya Consultancy</h3>
           <p className="text-sm">Your trusted partner in financial excellence and strategic growth.</p>
@@ -50,6 +51,7 @@ const Footer = () => {
       </div>
       <div className="text-center mt-4 text-xs">
         <p>© 2024 Dakhya Consultancy. All rights reserved.</p>
+        <p>Developed by <Link href={"https://saya-delta.vercel.app/"} className='hover:underline'>Saya</Link></p>
       </div>
     </footer>
   )
