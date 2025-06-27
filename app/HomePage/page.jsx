@@ -1,4 +1,5 @@
 "use client"
+import Navbar from '@/components/Navbar'
 import React, { useState, useEffect } from 'react'
 
 const HomePage = () => {
@@ -69,111 +70,71 @@ const HomePage = () => {
     }
   }, [hasAnimated, isLoaded])
 
-  // if (!isLoaded) {
-  //   return (
-  //     <div className='min-h-screen bg-white flex items-center justify-center'>
-  //       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1C1E53]"></div>
-  //     </div>
-  //   )
-  // }
-
   return (
-    <div className='min-h-screen flex items-center justify-center p-4'>
-      <div className='max-w-8xl ml-10 w-full flex items-center'>
-        {/* Left Content Section */}
-        <div 
-          className='flex-1 pr-16 mb-30'
+    <div className="relative min-h-screen w-full overflow-hidden">
+
+      {/* Video Background with Black Tint */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover min-h-screen -z-10"
+      >
+        <source src="/office.mp4" type="video/mp4" />
+        
+      </video>
+      <div className="absolute inset-0 bg-black opacity-50 bg-gradient-to-b"></div>
+
+      {/* Content Overlay */}
+      <div className="relative max-w-7xl mx-auto w-full flex items-center px-4 py-10">
+        <div
+          className="flex-1 pr-16"
           style={{
             animation: isLoaded ? 'fadeInLeft 1s ease-out forwards' : 'none',
             opacity: isLoaded ? 1 : 0,
-            transform: isLoaded ? 'translateX(0)' : 'translateX(-50px)'
+            transform: isLoaded ? 'translateX(0)' : 'translateX(-50px)',
           }}
         >
-          <h1 
-            className='text-6xl font-bold text-[#71A9F7 ] mb-4 leading-tight'
+          <h1
+            className="text-6xl font-bold text-[#71A9F7] mb-4 leading-tight"
             style={{
               animation: isLoaded ? 'fadeInUp 1s ease-out 0.5s both' : 'none',
-              opacity: isLoaded ? 1 : 0
+              opacity: isLoaded ? 1 : 0,
             }}
           >
             Strategic<br />
-            <span className='text-[#1C1E53]'>Financial</span><br />
-            <span className='text-[#1C1E53]'>Consulting</span>
+            <span className="text-white">Financial</span><br />
+            <span className="text-white">Consulting</span>
           </h1>
-          
-          <p 
-            className='text-gray-600 text-lg mb-12 leading-relaxed max-w-lg'
+
+          <p
+            className="text-gray-200 text-lg mb-12 leading-relaxed max-w-lg"
             style={{
               animation: isLoaded ? 'fadeInUp 1s ease-out 0.8s both' : 'none',
-              opacity: isLoaded ? 1 : 0
+              opacity: isLoaded ? 1 : 0,
             }}
           >
-            At Dakhya Financial Consultancy, we don't just work with numbers—we partner with you to shape a stronger financial future. Whether you're starting up or scaling up, our expert guidance on profitability, cash flow, debt, and cost control helps you grow with confidence, clarity, and complete peace of mind.
+            At Dakhya Financial Consultancy, we don&apos;t just work with numbers—we partner with you to shape a stronger financial future. Whether you&apos;re starting up or scaling up, our expert guidance on profitability, cash flow, debt, and cost control helps you grow with confidence, clarity, and complete peace of mind.
           </p>
-          
-          <div 
-            className='flex gap-4 mb-8'
+
+          <div
+            className="flex gap-4 mb-8"
             style={{
               animation: isLoaded ? 'fadeInUp 1s ease-out 1.1s both' : 'none',
-              opacity: isLoaded ? 1 : 0
+              opacity: isLoaded ? 1 : 0,
             }}
           >
-            <button className='bg-[#1C1E53] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#C9DAF1] hover:text-black cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg'>
+            <button className="bg-[#1C1E53] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#C9DAF1] hover:text-black cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
               Schedule Consultation
             </button>
-            <button className='border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-medium hover:border-gray-400 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer'>
+            <button className="border-2 border-gray-300 text-gray-200 px-8 py-4 rounded-lg font-medium hover:border-gray-400 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
               Learn More
             </button>
           </div>
-          
-          {/* Statistics */}
-          <div 
-            id="statistics"
-            className='flex gap-20'
-            style={{
-              animation: isLoaded ? 'fadeInUp 1s ease-out 1.4s both' : 'none',
-              opacity: isLoaded ? 1 : 0
-            }}
-          >
-            <div className='hover:scale-110 transition-transform duration-300'>
-              <div className='text-5xl font-bold text-gray-800 mb-2'>{counts.clients}+</div>
-              <div className='text-gray-600 text-sm'>Clients Served</div>
-            </div>
-            <div className='hover:scale-110 transition-transform duration-300'>
-              <div className='text-5xl font-bold text-gray-800 mb-2'>{counts.years}+</div>
-              <div className='text-gray-600 text-sm'>Years Experience</div>
-            </div>
-            <div className='hover:scale-110 transition-transform duration-300'>
-              <div className='text-5xl font-bold text-gray-800 mb-2'>{counts.success}%</div>
-              <div className='text-gray-600 text-sm'>Success Rate</div>
-            </div>
-          </div>
         </div>
+
         
-        {/* Right Image Section */}
-        <div 
-          className='flex justify-center mb-30 ml-40'
-          style={{
-            animation: isLoaded ? 'fadeInRight 1s ease-out 0.5s both' : 'none',
-            opacity: isLoaded ? 1 : 0
-          }}
-        >
-          <div 
-            className='rounded-2xl p-6 items-center hover:scale-105 transition-all duration-500'
-          >
-            {/* Professional Image */}
-            <img 
-              src="/landing.png"
-              alt="Professional consultation"
-              width="150%"
-              className='rounded-2xl transition-shadow duration-300 relative'
-              style={{
-                animation: isLoaded ? 'fadeIn 2.8s ease-out 2.5s both' : 'none',
-                opacity: isLoaded ? 1 : 0
-              }}
-            />
-          </div>
-        </div>
       </div>
 
       <style jsx>{`

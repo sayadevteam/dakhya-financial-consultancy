@@ -21,6 +21,7 @@ const staggerContainer = {
   },
 }
 
+
 const FeatureCard = ({ icon, title, description, delay = 0 }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })

@@ -6,11 +6,12 @@ import Image from 'next/image'
 const Navbar = () => {
   return (
     <main>
-      <div className='grid grid-cols-2 items-center text-black'>
-        <div className='justify-self-center pr-64 font-extrabold'>
+      <div className='grid grid-cols-2 items-center bg-black text-white '> {/* Changed to text-white/90 for higher opacity */}
+        
+        <div className='justify-self-center font-extrabold'>
             <ul>
-                <li className='flex text-xl'>
-                   <Image src='/Logo.png' alt='Logo' width={120} height={120} className='mr-2' />
+                <li className='flex'>
+                   <Image src='/Dakhyabg.png' alt='Logo' width={150} height={150} className='' />
                 </li>
             </ul>
         </div>

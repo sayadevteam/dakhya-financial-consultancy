@@ -1,14 +1,14 @@
 import AboutUsPage from "./AboutUs/page";
 import ContactUsPage from "./ContactUs/page";
 import HomePage from "./HomePage/page";
-import ServicesPage from "./ServicesPage/page";
+import ServicesSection from "./ServicesPage/page";
 
 
 export default function Home() {
   return (
     <main>
         <HomePage/>
-        <ServicesPage/>
+        <ServicesSection/>
         <AboutUsPage/>
         <ContactUsPage/>
     </main>
