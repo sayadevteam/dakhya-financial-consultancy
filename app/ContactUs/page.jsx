@@ -167,7 +167,7 @@ const ContactUsPage = () => {
     //   </div>
     // </div>
   
-  <div className="min-h-screen flex justify-center items-center">Contact Us</div>
+  <div className="min-h-screen bg-[#131314] text-white flex justify-center items-center">Contact Us</div>
   );
 };
 

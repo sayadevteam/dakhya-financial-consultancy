@@ -71,8 +71,8 @@ const HomePage = () => {
   }, [hasAnimated, isLoaded])
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden">
-
+    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-t from-[#131314] to-55% ">
+      
       {/* Video Background with Black Tint */}
       <video
         autoPlay
@@ -84,7 +84,13 @@ const HomePage = () => {
         <source src="/office.mp4" type="video/mp4" />
         
       </video>
-      <div className="absolute inset-0 bg-black opacity-50 bg-gradient-to-b"></div>
+      
+      <div className="absolute inset-0 bg-black opacity-50 bg-gradient-to-b -z-10"></div>
+
+      {/* Navbar - positioned above everything */}
+      <div className="relative z-50">
+        <Navbar />
+      </div>
 
       {/* Content Overlay */}
       <div className="relative max-w-7xl mx-auto w-full flex items-center px-4 py-10">

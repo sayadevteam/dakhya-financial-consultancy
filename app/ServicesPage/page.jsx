@@ -58,7 +58,7 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <div className="relative py-20 bg-[#131314] text-white overflow-hidden">
+    <div className="relative py-20 bg-gradient-to-b from-[#131314] to-[#131314] text-white overflow-hidden">
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-r from-green-500 to-teal-600 rounded-full blur-2xl animate-pulse delay-1000"></div>

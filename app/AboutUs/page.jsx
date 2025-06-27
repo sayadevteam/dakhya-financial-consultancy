@@ -220,10 +220,10 @@ export default function AboutSection() {
             transition={{ duration: 1, delay: 0.3 }}
             className="relative inline-block"
           >
-            <h2 className="text-6xl md:text-7xl font-black bg-gradient-to-r from-white via-gray-300 to-[#1C1E53] bg-clip-text text-transparent mb-8 leading-tight">
+            <h2 className="text-6xl md:text-7xl font-black text-white mb-8 leading-tight">
               About Dakhya
               <br />
-              <span className="text-5xl md:text-6xl bg-gradient-to-r from-[#1C1E53] via-gray-400 to-white bg-clip-text text-transparent">
+              <span className="text-5xl md:text-6xl text-white">
                 Consultancy
               </span>
             </h2>
@@ -244,7 +244,7 @@ export default function AboutSection() {
             transition={{ duration: 1, delay: 1 }}
           >
             We are a team of{" "}
-            <span className="text-transparent bg-gradient-to-r from-[#1C1E53] to-white bg-clip-text font-semibold">
+            <span className="text-transparent bg-gradient-to-l from-[#48484f] to-white bg-clip-text font-semibold">
               experienced financial professionals
             </span>{" "}
             dedicated to helping businesses and individuals navigate complex financial landscapes with confidence and
@@ -269,7 +269,7 @@ export default function AboutSection() {
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               Our{" "}
-              <span className="text-transparent bg-gradient-to-r from-[#1C1E53] to-gray-400 bg-clip-text">Mission</span>
+              <span className="text-transparent bg-gradient-to-r from-[#48484f] to-gray-400 bg-clip-text">Mission</span>
               
             </motion.h3>
 
@@ -298,8 +298,7 @@ export default function AboutSection() {
             animate={missionInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             transition={{ duration: 1, delay: 0.4 }}
           >
-            <div className="absolute -top-12 -right-12 w-40 h-40 bg-gradient-to-br from-black/40 to-[#1C1E53]/40 rounded-full blur-3xl"></div>
-
+           
             <div className="grid grid-cols-2 gap-8">
               {features.map((feature, index) => (
                 <FeatureCard
