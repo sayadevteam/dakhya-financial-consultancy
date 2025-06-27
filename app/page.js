@@ -6,7 +6,7 @@ import ServicesSection from "./ServicesPage/page";
 
 export default function Home() {
   return (
-    <main className="bg-[#131314]">
+    <main>
         <HomePage/>
         <ServicesSection/>
         <AboutUsPage/>
