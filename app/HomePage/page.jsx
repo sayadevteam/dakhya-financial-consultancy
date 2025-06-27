@@ -125,16 +125,16 @@ const HomePage = () => {
           </p>
 
           <div
-            className="flex gap-4 mb-8"
+            className="flex flex-col sm:flex-row gap-4 mb-8"
             style={{
               animation: isLoaded ? 'fadeInUp 1s ease-out 1.1s both' : 'none',
               opacity: isLoaded ? 1 : 0,
             }}
           >
-            <button className="bg-[#1C1E53] text-white px-8 py-4 rounded-lg font-medium hover:bg-[#C9DAF1] hover:text-black cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
+            <button className="bg-[#1C1E53] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-medium hover:bg-[#C9DAF1] hover:text-black cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm sm:text-base">
               Schedule Consultation
             </button>
-            <button className="border-2 border-gray-300 text-gray-200 px-8 py-4 rounded-lg font-medium hover:border-gray-400 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
+            <button className="border-2 border-gray-300 text-gray-200 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-medium hover:border-gray-400 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer text-sm sm:text-base">
               Learn More
             </button>
           </div>

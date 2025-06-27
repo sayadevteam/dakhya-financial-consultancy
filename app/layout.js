@@ -2,6 +2,7 @@ import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ReactLenis } from 'lenis/react'
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
         className={`${montserrat.className}`}
       >
         {/* <Navbar/> */}
+        <ReactLenis root/>
         {children}
         <Footer/>
       </body>

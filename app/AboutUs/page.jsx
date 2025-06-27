@@ -206,6 +206,24 @@ export default function AboutSection() {
     >
       <AnimatedBackground />
 
+      {/* Money Icon Background - Center of entire section */}
+      <motion.div
+  initial={{ opacity: 0, scale: 0.5, rotate: -15 }}
+  animate={{ opacity: 0.08, scale: 1, rotate: 0 }}
+  transition={{ duration: 3, delay: 1, ease: "easeOut" }}
+  className="absolute inset-0 hidden md:flex items-center justify-center pointer-events-none"
+  style={{ zIndex: 1 }}
+>
+  <Image 
+    src='/Lock.png' 
+    width={800} 
+    height={800}
+    alt="Money Background"
+    className=""
+  />
+</motion.div>
+
+
       <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
           ref={headerRef}
@@ -220,13 +238,17 @@ export default function AboutSection() {
             transition={{ duration: 1, delay: 0.3 }}
             className="relative inline-block"
           >
-            <h2 className="text-6xl md:text-7xl font-black text-white mb-8 leading-tight">
-              About Dakhya
-              <br />
-              <span className="text-5xl md:text-6xl text-white">
-                Consultancy
-              </span>
-            </h2>
+            {/* Main Title */}
+            <div className="relative z-10 text-center mb-8">
+              <h2 className="text-6xl md:text-7xl font-black text-white leading-tight">
+                About Dakhya
+                <br />
+                <span className="text-5xl md:text-6xl text-white">
+                  Consultancy
+                </span>
+              </h2>
+            </div>
+
             <div className="absolute -inset-4 bg-gradient-to-r from-[#1C1E53]/20 via-black/20 to-[#1C1E53]/20 blur-2xl rounded-3xl"></div>
           </motion.div>
 

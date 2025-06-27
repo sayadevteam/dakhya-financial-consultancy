@@ -56,7 +56,8 @@ const ContactUsPage = () => {
             <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-green-500 to-teal-600 rounded-full blur-2xl animate-pulse delay-1000"></div>
           </div>
 
-          <div className="flex justify-center items-center h-screen px-8">
+          {/* Desktop Image Container */}
+          <div className="hidden lg:flex justify-center items-center h-screen px-8">
             <div className="">
               <div className="">
                 <div className="">
@@ -65,25 +66,30 @@ const ContactUsPage = () => {
                   <div className="text-center ">
                     <div className=" justify-center ">
                       <Image
-                        src="/visa.png"
-                        alt="Visa Card"
+                        src="/MoneyStack.png"
+                        alt="Money Stack"
                         width={800}
-                        height={180}
+                        height={800}
                         className="object-contain "
                       />
                     </div>
                   </div>
-                  <div className="mt-12 text-center">
-                    <div className="flex items-center justify-center gap-4 text-gray-400">
-                      <div className="w-12 h-[1px] bg-gradient-to-r from-transparent to-blue-500"></div>
-                      <span>Or reach us directly</span>
-                      <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-blue-500"></div>
-                    </div>
-                    <div className="mt-4 space-y-2 text-gray-300">
-                      <p>dakhyafinancialconsultancy@gmail.com</p>
-                    </div>
-                  </div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Image Container */}
+          <div className="flex lg:hidden justify-center items-center py-8 px-4">
+            <div className="w-full max-w-md">
+              <div className="text-center">
+                <Image
+                  src="/MoneyStack.png"
+                  alt="Money Stack"
+                  width={400}
+                  height={400}
+                  className="object-contain mx-auto"
+                />
               </div>
             </div>
           </div>
