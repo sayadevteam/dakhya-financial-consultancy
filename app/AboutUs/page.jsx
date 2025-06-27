@@ -137,7 +137,7 @@ const AnimatedBackground = () => {
   return (
     <div className="absolute inset-0 overflow-hidden">
       <motion.div
-        className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-br from-[#131314]/40 to-white/40 rounded-full blur-3xl"
+        className="absolute rounded-full blur-3xl"
         animate={{
           x: [0, -80, 0],
           y: [0, 30, 0],
@@ -150,7 +150,7 @@ const AnimatedBackground = () => {
         }}
       />
       <motion.div
-        className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-[#131314]/30 to-white/30 rounded-full blur-2xl"
+        className="absolute  rounded-full blur-2xl"
         animate={{
           rotate: [0, 360],
           scale: [1, 1.3, 1],
@@ -202,7 +202,7 @@ export default function AboutSection() {
 
   return (
     <div
-      className={`${montserrat.className} relative min-h-screen bg-gradient-to-br from-[#131314] from-80% to-white py-24 px-4 overflow-hidden`}
+      className={`${montserrat.className} relative min-h-screen bg-[#131314] py-24 px-4 overflow-hidden`}
     >
       <AnimatedBackground />
 
