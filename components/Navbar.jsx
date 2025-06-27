@@ -11,7 +11,8 @@ const Navbar = () => {
         <div className='justify-self-start font-extrabold'> 
             <ul>
                 <li className='flex '>
-                   <Image src='/Dakhyabg.png' alt='Logo' width={170} height={170} className='' />
+                   <Image src='/Dakhyabg.png' alt='Logo' width={200} height={200} className='-ml-8' />
+                    <span className='text-3xl items-center mt-12 '>Dakhya Financial Consultancy</span>
                 </li>
             </ul>
         </div>

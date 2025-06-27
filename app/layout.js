@@ -12,7 +12,7 @@ export const metadata = {
   title: "Dakhya Financial Consultancy",
   description: "",
   icons: {
-    icon: '/Logo.png', 
+    icon: '/Dakhyabg.png', 
   },
 };  
 

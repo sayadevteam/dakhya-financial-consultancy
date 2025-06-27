@@ -263,13 +263,13 @@ export default function AboutSection() {
             <div className="absolute -top-8 -left-8 w-32 h-32 bg-gradient-to-br from-[#1C1E53]/40 to-black/40 rounded-full blur-2xl"></div>
 
             <motion.h3
-              className="text-5xl font-bold text-white mb-10 relative"
+              className="text-5xl font-bold text-blue-400 mb-10 relative"
               initial={{ opacity: 0, y: 50 }}
               animate={missionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               Our{" "}
-              <span className="text-transparent bg-gradient-to-r from-[#48484f] to-gray-400 bg-clip-text">Mission</span>
+              <span className="text-white bg-clip-text">Mission</span>
               
             </motion.h3>
 
