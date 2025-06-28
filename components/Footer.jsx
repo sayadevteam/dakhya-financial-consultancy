@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="mb-6">
-              <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
+              <h2 className="text-3xl font-bold bg-white bg-clip-text text-transparent mb-4">
                 Dakhya Consultancy
               </h2>
               <p className="text-gray-300 text-lg leading-relaxed max-w-md">
@@ -94,7 +94,7 @@ const Footer = () => {
         <div className="border-t border-gray-700/50 pt-8 mb-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
             {/* Newsletter */}
-            <div className="flex-1 max-w-md">
+            {/* <div className="flex-1 max-w-md">
               <h4 className="text-lg font-semibold mb-3 text-white">Stay Updated</h4>
               <div className="flex rounded-lg overflow-hidden bg-gray-800/50 border border-gray-700">
                 <input 
@@ -106,7 +106,7 @@ const Footer = () => {
                   Subscribe
                 </button>
               </div>
-            </div>
+            </div> */}
 
             {/* Social Media */}
             <div className="flex items-center space-x-2">
@@ -146,7 +146,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-700/50 pt-6 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
           <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6">
-            <p>© 2024 Dakhya Consultancy. All rights reserved.</p>
+            <p>© 2025 Dakhya Financial Consultancy. All rights reserved.</p>
             <div className="flex space-x-4">
               {/* <a href="#" className="hover:text-white transition-colors duration-300">Privacy Policy</a>
               <span>•</span>

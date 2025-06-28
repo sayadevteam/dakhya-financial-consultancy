@@ -266,7 +266,7 @@ export default function AboutSection() {
             transition={{ duration: 1, delay: 1 }}
           >
             We are a team of{" "}
-            <span className="text-transparent bg-gradient-to-l from-[#48484f] to-white bg-clip-text font-semibold">
+            <span className="text-transparent bg-[#51A2FF] to-white bg-clip-text font-semibold">
               experienced financial professionals
             </span>{" "}
             dedicated to helping businesses and individuals navigate complex financial landscapes with confidence and

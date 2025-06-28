@@ -1,20 +1,43 @@
 "use client"
 import Navbar from '@/components/Navbar'
+import Preloader from '@/components/Preloader'
 import React, { useState, useEffect } from 'react'
+// import Preloader from '@/components/Preloader' // Uncomment when ready
 
 const HomePage = () => {
   const [counts, setCounts] = useState({ clients: 0, years: 0, success: 0 })
   const [hasAnimated, setHasAnimated] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [showPreloader, setShowPreloader] = useState(true)
+  const [preloaderComplete, setPreloaderComplete] = useState(false)
 
-  // Ensure components show up immediately on load
+  // Check if preloader should show (first visit only)
   useEffect(() => {
-    setIsLoaded(true)
+    const hasVisited = sessionStorage.getItem('hasVisitedSite')
+    
+    if (hasVisited) {
+      // User has already visited, skip preloader
+      setShowPreloader(false)
+      setPreloaderComplete(true)
+      setIsLoaded(true)
+    } else {
+      // First visit, show preloader
+      sessionStorage.setItem('hasVisitedSite', 'true')
+      
+      // Simulate preloader duration (adjust as needed)
+      const preloaderTimer = setTimeout(() => {
+        setShowPreloader(false)
+        setPreloaderComplete(true)
+        setIsLoaded(true)
+      }, 3000) // 3 seconds - adjust based on your preloader duration
+
+      return () => clearTimeout(preloaderTimer)
+    }
   }, [])
 
   // Counting animation effect
   useEffect(() => {
-    if (!isLoaded) return
+    if (!preloaderComplete || !isLoaded) return
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -68,7 +91,16 @@ const HomePage = () => {
       clearTimeout(timer)
       observer.disconnect()
     }
-  }, [hasAnimated, isLoaded])
+  }, [hasAnimated, preloaderComplete, isLoaded])
+
+  // Show preloader if it's the first visit
+  if (showPreloader) {
+    return (
+      <div className="fixed inset-0 z-[9999] bg-black">
+        <Preloader/>
+      </div>
+    )
+  }
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-t from-[#131314] to-55% ">
@@ -97,16 +129,16 @@ const HomePage = () => {
         <div
           className="flex-1 pr-16"
           style={{
-            animation: isLoaded ? 'fadeInLeft 1s ease-out forwards' : 'none',
-            opacity: isLoaded ? 1 : 0,
-            transform: isLoaded ? 'translateX(0)' : 'translateX(-50px)',
+            animation: preloaderComplete ? 'fadeInLeft 1s ease-out forwards' : 'none',
+            opacity: preloaderComplete ? 1 : 0,
+            transform: preloaderComplete ? 'translateX(0)' : 'translateX(-50px)',
           }}
         >
           <h1
             className="text-6xl font-bold text-[#71A9F7] mb-4 leading-tight"
             style={{
-              animation: isLoaded ? 'fadeInUp 1s ease-out 0.5s both' : 'none',
-              opacity: isLoaded ? 1 : 0,
+              animation: preloaderComplete ? 'fadeInUp 1s ease-out 0.5s both' : 'none',
+              opacity: preloaderComplete ? 1 : 0,
             }}
           >
             Strategic<br />
@@ -117,8 +149,8 @@ const HomePage = () => {
           <p
             className="text-gray-200 text-lg mb-12 leading-relaxed max-w-lg"
             style={{
-              animation: isLoaded ? 'fadeInUp 1s ease-out 0.8s both' : 'none',
-              opacity: isLoaded ? 1 : 0,
+              animation: preloaderComplete ? 'fadeInUp 1s ease-out 0.8s both' : 'none',
+              opacity: preloaderComplete ? 1 : 0,
             }}
           >
             At Dakhya Financial Consultancy, we don&apos;t just work with numbers—we partner with you to shape a stronger financial future. Whether you&apos;re starting up or scaling up, our expert guidance on profitability, cash flow, debt, and cost control helps you grow with confidence, clarity, and complete peace of mind.
@@ -127,8 +159,8 @@ const HomePage = () => {
           <div
             className="flex flex-col sm:flex-row gap-4 mb-8"
             style={{
-              animation: isLoaded ? 'fadeInUp 1s ease-out 1.1s both' : 'none',
-              opacity: isLoaded ? 1 : 0,
+              animation: preloaderComplete ? 'fadeInUp 1s ease-out 1.1s both' : 'none',
+              opacity: preloaderComplete ? 1 : 0,
             }}
           >
             <button className="bg-[#1C1E53] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-medium hover:bg-[#C9DAF1] hover:text-black cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm sm:text-base">

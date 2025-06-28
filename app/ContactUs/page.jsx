@@ -2,7 +2,7 @@
 
 import { Oswald } from "next/font/google";
 import Image from "next/image";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 
 const oswald = Oswald({
@@ -22,15 +22,6 @@ const ContactUsPage = () => {
     message: "",
   });
 
-  // useEffect(() => {
-  //   if (user?.emailAddresses?.[0]?.emailAddress) {
-  //     setFormData((prev) => ({
-  //       ...prev,
-  //       user_email: user.emailAddresses[0].emailAddress,
-  //     }));
-  //   }
-  // }, [user]);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -45,20 +36,22 @@ const ContactUsPage = () => {
     setSubmitStatus(null);
     setErrorMessage(null);
 
-    // Ensure form.current exists and set from_email
     if (!form.current) {
-      setSubmitStatus('error');
-      setErrorMessage('Form reference is missing');
+      setSubmitStatus("error");
+      setErrorMessage("Form reference is missing");
       setIsSubmitting(false);
       return;
     }
 
-
-
-    // Validate environment variables
-    if (!process.env.NEXT_PUBLIC_SERVICE_ID || !process.env.NEXT_PUBLIC_TEMPLATE_ID || !process.env.NEXT_PUBLIC_USER_ID) {
-      setSubmitStatus('error');
-      setErrorMessage('EmailJS configuration is missing. Please check environment variables.');
+    if (
+      !process.env.NEXT_PUBLIC_SERVICE_ID ||
+      !process.env.NEXT_PUBLIC_TEMPLATE_ID ||
+      !process.env.NEXT_PUBLIC_USER_ID
+    ) {
+      setSubmitStatus("error");
+      setErrorMessage(
+        "EmailJS configuration is missing. Please check environment variables."
+      );
       setIsSubmitting(false);
       return;
     }
@@ -74,7 +67,7 @@ const ContactUsPage = () => {
       )
       .then(
         () => {
-          setSubmitStatus('success');
+          setSubmitStatus("success");
           setFormData({
             user_name: "",
             user_email: "",
@@ -82,9 +75,9 @@ const ContactUsPage = () => {
           });
         },
         (error) => {
-          setSubmitStatus('error');
-          setErrorMessage(error.text || 'Failed to send message');
-          console.error('EmailJS error:', error);
+          setSubmitStatus("error");
+          setErrorMessage(error.text || "Failed to send message");
+          console.error("EmailJS error:", error);
         }
       )
       .finally(() => {
@@ -101,26 +94,30 @@ const ContactUsPage = () => {
             <div className="absolute bottom-20 right-20 w-24 h-24 bg-gradient-to-r from-green-500 to-teal-600 rounded-full blur-2xl animate-pulse delay-1000"></div>
           </div>
 
-          <div className="hidden lg:flex justify-center items-center h-screen px-8">
-            <div>
-              <div className="relative">
-                <div className="absolute inset-0 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-500 scale-110 hover:scale-110 transition-all duration-500"></div>
-                <div className="text-center">
-                  <Image
-                    src="/MoneyStack.png"
-                    alt="Money Stack"
-                    width={800}
-                    height={800}
-                    className="object-contain"
-                  />
-                </div>
-              </div>
+          {/* Desktop Image */}
+          <div className="hidden lg:flex justify-center items-center h-screen px-8 relative">
+            {/* Glossy glow */}
+            <div className="absolute w-80 h-80 rounded-full bg-gradient-to-br from-white/20 via-blue-300/10 to-transparent blur-2xl opacity-40 animate-pulse z-0" />
+            <div className="relative z-10 animate-float">
+              <Image
+                src="/MoneyStack.png"
+                alt="Money Stack"
+                width={800}
+                height={800}
+                className="object-contain"
+              />
             </div>
           </div>
 
-          <div className="flex lg:hidden justify-center items-center py-8 px-4">
-            <div className="w-full max-w-md">
-              <div className="text-center">
+          {/* Mobile Image */}
+          <div className="flex lg:hidden justify-center items-center py-8 px-4 relative">
+            <div className="w-full max-w-md relative">
+              {/* Glossy glow */}
+              <div className="absolute inset-0 flex justify-center items-center pointer-events-none z-0">
+                <div className="w-72 h-72 rounded-full bg-gradient-to-br from-white/20 via-blue-200/10 to-transparent blur-2xl animate-pulse opacity-40"></div>
+              </div>
+
+              <div className="text-center relative z-10 animate-float">
                 <Image
                   src="/MoneyStack.png"
                   alt="Money Stack"
@@ -133,11 +130,13 @@ const ContactUsPage = () => {
           </div>
         </div>
 
-        <div className="text- white flex items-center justify-center px-8 py-12">
+        <div className="text-white flex items-center justify-center px-8 py-12">
           <div className="w-full max-w-lg">
             <div className="text-center mb-12">
-              <h1 className="text-5xl font-bold mb-4">Contact Us</h1>
-              <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mb-6"></div>
+              <h1 className="text-5xl text-white font-bold mb-4">
+                Contact <span className="text-[#71A9F7]">Us</span>
+              </h1>
+              <div className="w-24 h-1 bg-white rounded-full mx-auto mt-6 mb-6"></div>
               <p className="text-gray-300 text-lg">
                 Get in touch with us. We'd love to hear from you and help with
                 your financial needs.
@@ -145,7 +144,11 @@ const ContactUsPage = () => {
             </div>
 
             <form ref={form} onSubmit={sendEmail} className="space-y-6">
-              <input type="hidden" name="from_email" value={formData.user_email} />
+              <input
+                type="hidden"
+                name="from_email"
+                value={formData.user_email}
+              />
 
               <div className="relative group">
                 <input
@@ -184,11 +187,13 @@ const ContactUsPage = () => {
                 ></textarea>
               </div>
 
-              {submitStatus === 'success' && (
+              {submitStatus === "success" && (
                 <p className="text-green-500">Message sent successfully!</p>
               )}
-              {submitStatus === 'error' && (
-                <p className="text-red-500">{errorMessage || 'Failed to send message. Please try again.'}</p>
+              {submitStatus === "error" && (
+                <p className="text-red-500">
+                  {errorMessage || "Failed to send message. Please try again."}
+                </p>
               )}
 
               <button
