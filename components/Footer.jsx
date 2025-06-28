@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <div className="mb-6">
               <h2 className="text-3xl font-bold bg-white bg-clip-text text-transparent mb-4">
-                Dakhya Consultancy
+                <span className='text-[#71A9F7]'>Dakhya</span> Financial Consultancy
               </h2>
               <p className="text-gray-300 text-lg leading-relaxed max-w-md">
                 Your trusted partner in financial excellence and strategic growth. We deliver innovative solutions that drive sustainable business success.

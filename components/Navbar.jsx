@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
-import { Command, LayoutGrid, Menu, X } from "lucide-react";
+import { AlignJustify, Command, LayoutGrid, Menu, X } from "lucide-react";
 import Image from "next/image";
 
 const Navbar = () => {
@@ -69,7 +69,7 @@ const Navbar = () => {
           onClick={toggleMobileMenu}
           className="p-3 hover:bg-white/10 rounded-full border backdrop-blur-2xl border-white/30 mb-2 transition-colors duration-300"
         >
-          {isMobileMenuOpen ? <X size={24} /> : <Command size={24} />}
+          {isMobileMenuOpen ? <X size={24} /> : <AlignJustify size={24} />}
         </button>
       </div>
 
@@ -89,16 +89,16 @@ const Navbar = () => {
       >
         <div className="flex items-center justify-between p-6 ">
           <div className="flex items-center -ml-10 ">
-            <Image src="/Dakhyabg.png" alt="Logo" width={120} height={120} />
+            {/* <Image src="/Dakhyabg.png" alt="Logo" width={120} height={120} /> */}
             {/* <span className='text-white font-bold ml-2 text-sm'>
               Dakhya Financial
             </span> */}
           </div>
           <button
             onClick={toggleMobileMenu}
-            className="p-2 hover:bg-white/10  transition-colors duration-300 mb-5"
+            className="p-2 hover:bg-white/10  transition-colors duration-300 mt-2 ml-2"
           >
-            <X size={30} className="text-white " />
+            <X size={30} className="text-white ml-10" />
           </button>
         </div>
 

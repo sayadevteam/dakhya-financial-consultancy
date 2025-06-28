@@ -215,7 +215,7 @@ export default function AboutSection() {
   style={{ zIndex: 1 }}
 >
   <Image 
-    src='/Lock.png' 
+    src='/Shield.png' 
     width={800} 
     height={800}
     alt="Money Background"
