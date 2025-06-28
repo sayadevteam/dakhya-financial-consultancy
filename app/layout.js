@@ -1,13 +1,6 @@
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs'
+
 import Footer from "@/components/Footer";
 import { ReactLenis } from 'lenis/react'
 
@@ -28,7 +21,6 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
     <html lang="en">
       <body
         className={`${montserrat.className}`}
@@ -39,6 +31,6 @@ export default function RootLayout({ children }) {
         <Footer/>
       </body>
     </html>
-    </ClerkProvider>
+  
   );
 }

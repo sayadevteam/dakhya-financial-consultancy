@@ -4,7 +4,6 @@ import { Oswald } from "next/font/google";
 import Image from "next/image";
 import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
-import { useUser } from "@clerk/nextjs";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -13,7 +12,6 @@ const oswald = Oswald({
 
 const ContactUsPage = () => {
   const form = useRef();
-  const { user } = useUser();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -24,14 +22,14 @@ const ContactUsPage = () => {
     message: "",
   });
 
-  useEffect(() => {
-    if (user?.emailAddresses?.[0]?.emailAddress) {
-      setFormData((prev) => ({
-        ...prev,
-        user_email: user.emailAddresses[0].emailAddress,
-      }));
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user?.emailAddresses?.[0]?.emailAddress) {
+  //     setFormData((prev) => ({
+  //       ...prev,
+  //       user_email: user.emailAddresses[0].emailAddress,
+  //     }));
+  //   }
+  // }, [user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -55,8 +53,7 @@ const ContactUsPage = () => {
       return;
     }
 
-    // Update the hidden from_email field
-    form.current.from_email.value = formData.user_email;
+
 
     // Validate environment variables
     if (!process.env.NEXT_PUBLIC_SERVICE_ID || !process.env.NEXT_PUBLIC_TEMPLATE_ID || !process.env.NEXT_PUBLIC_USER_ID) {
@@ -80,7 +77,7 @@ const ContactUsPage = () => {
           setSubmitStatus('success');
           setFormData({
             user_name: "",
-            user_email: user?.emailAddresses?.[0]?.emailAddress || "",
+            user_email: "",
             message: "",
           });
         },
