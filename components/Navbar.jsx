@@ -1,8 +1,9 @@
 "use client"
 import React, { useState } from 'react'
 import { Button } from './ui/button'
-import { Command, LayoutGrid, Menu, X } from 'lucide-react'
+import { Command, X } from 'lucide-react'
 import Image from 'next/image'
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -14,25 +15,40 @@ const Navbar = () => {
   return (
     <main>
       {/* Desktop Navbar */}
-      <div className='hidden lg:grid grid-cols-2 items-center text-white mx-4 xl:mx-48 px-4'>
+      <div className='flex justify-evenly lg:grid grid-cols-2 items-center text-white mx-4 xl:mx-48'>
         <div className='justify-self-start font-extrabold'> 
           <ul>
             <li className='flex items-center'>
               <Image src='/Dakhyabg.png' alt='Logo' width={200} height={200} className='-ml-8' />
-              <span className='text-sm xl:text-xl ml-2 xl:mt-2'>
+              <span className='text-sm xl:text-xl mb-12'>
                 Dakhya Financial Consultancy
               </span>
             </li>
           </ul>
         </div>
         <div className='justify-self-end'>
-          <ul className='flex gap-4 xl:gap-7 items-center cursor-pointer text-sm xl:text-base'>
+          <ul className='flex gap-4 xl:gap-7 mb-10 cursor-pointer text-sm xl:text-base items-center'>
             <li className='hover:text-[#71A9F7] transition-colors duration-300'>Home</li>
             <li className='hover:text-[#71A9F7] transition-colors duration-300'>Services</li>
             <li className='hover:text-[#71A9F7] transition-colors duration-300'>About Us</li>
-            <Button className='bg-[#1C1E53] hover:bg-[#C9DAF1] hover:text-black cursor-pointer transition-all duration-300 text-sm xl:text-base px-4 xl:px-6'>
+            <Button className='bg-[#1C1E53] mb-7 mt-5 hover:bg-[#C9DAF1] hover:text-black cursor-pointer transition-all duration-300 text-sm xl:text-base px-4 xl:px-6'>
               Contact Us
             </Button>
+            <SignedOut>
+              <SignInButton>
+                <Button className='bg-[#1C1E53] mb-7 hover:bg-[#C9DAF1] hover:text-black cursor-pointer transition-all duration-300 text-sm xl:text-base px-4 xl:px-6 mt-5'>
+                  Sign In
+                </Button>
+              </SignInButton>
+              {/* <SignUpButton>
+                <Button className='bg-[#6c47ff] text-white rounded-full font-medium text-sm xl:text-base h-10 xl:h-12 px-4 xl:px-5 cursor-pointer mb-7'>
+                  Sign Up
+                </Button>
+              </SignUpButton> */}
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </ul>
         </div>
       </div>
@@ -47,9 +63,6 @@ const Navbar = () => {
             height={100} 
             className='-ml-3' 
           />
-          {/* <span className='text-sm font-bold ml-2'>
-            Dakhya Financial Consultancy
-          </span> */}
         </div>
         <button 
           onClick={toggleMobileMenu}
@@ -73,17 +86,14 @@ const Navbar = () => {
           isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className='flex items-center justify-between p-6 '>
-          <div className='flex items-center -ml-10 '>
+        <div className='flex items-center justify-between p-6'>
+          <div className='flex items-center -ml-10'>
             <Image 
               src='/Dakhyabg.png' 
               alt='Logo' 
               width={120} 
               height={120} 
             />
-            {/* <span className='text-white font-bold ml-2 text-sm'>
-              Dakhya Financial
-            </span> */}
           </div>
           <button 
             onClick={toggleMobileMenu}
@@ -130,6 +140,23 @@ const Navbar = () => {
                 Contact Us
               </Button>
             </li>
+            <SignedOut>
+              <li className='pt-4'>
+                <SignInButton>
+                  <Button 
+                    className='w-full bg-[#1C1E53] hover:bg-[#C9DAF1] hover:text-black cursor-pointer transition-all duration-300 py-3'
+                    onClick={toggleMobileMenu}
+                  >
+                    Sign In
+                  </Button>
+                </SignInButton>
+              </li>
+            </SignedOut>
+            <SignedIn>
+              <li className='pt-4'>
+                <UserButton />
+              </li>
+            </SignedIn>
           </ul>
         </nav>
       </div>
