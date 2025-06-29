@@ -69,7 +69,7 @@ const ServicesSection = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
           <div className="inline-block">
-            <h2 className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text text-white mb-9 relative">
+            <h2 className="text-5xl md:text-6xl font-bold bg-clip-text text-white mb-9 relative">
               <span className="text-[#71A9F7]">Our</span> Services
               <div className="absolute -bottom-5 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-white rounded-full"></div>
             </h2>

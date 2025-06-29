@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
-
+import WhatsAppButton from "@/components/WhatsappButton";
 import Footer from "@/components/Footer";
 import { ReactLenis } from 'lenis/react'
 import { Toaster } from "@/components/ui/sonner";
@@ -29,6 +29,7 @@ export default function RootLayout({ children }) {
         {/* <Navbar/> */}
         <ReactLenis root/>
         {children}
+        <WhatsAppButton />
         <Toaster/>
         <Footer/>
       </body>
