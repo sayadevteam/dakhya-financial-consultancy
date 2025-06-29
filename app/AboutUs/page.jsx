@@ -33,7 +33,7 @@ const FeatureCard = ({ icon, title, description, delay = 0, index }) => {
       className="relative group cursor-pointer perspective-1000"
       style={{ transformStyle: "preserve-3d" }}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1C1E53]/30 via-[#1C1E53]/20 to-black/30 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform scale-110"></div>
+      <div id="about" className="absolute inset-0 bg-gradient-to-br from-[#1C1E53]/30 via-[#1C1E53]/20 to-black/30 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform scale-110"></div>
 
       <div className="relative bg-white/5 backdrop-blur-xl border border-[#1C1E53]/30 rounded-2xl p-8 shadow-2xl overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#1C1E53]/10 to-transparent"></div>

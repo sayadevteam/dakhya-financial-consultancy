@@ -103,7 +103,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-t from-[#131314] to-55% ">
+    <div id='home' className="relative min-h-screen w-full overflow-hidden bg-gradient-to-t from-[#131314] to-55% ">
       
       {/* Video Background with Black Tint */}
       <video

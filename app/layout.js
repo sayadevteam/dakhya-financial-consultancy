@@ -3,6 +3,7 @@ import "./globals.css";
 
 import Footer from "@/components/Footer";
 import { ReactLenis } from 'lenis/react'
+import { Toaster } from "@/components/ui/sonner";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
         {/* <Navbar/> */}
         <ReactLenis root/>
         {children}
+        <Toaster/>
         <Footer/>
       </body>
     </html>

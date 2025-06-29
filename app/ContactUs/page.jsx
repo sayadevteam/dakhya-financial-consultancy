@@ -4,6 +4,7 @@ import { Oswald } from "next/font/google";
 import Image from "next/image";
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import { toast } from "sonner";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -73,6 +74,7 @@ const ContactUsPage = () => {
             user_email: "",
             message: "",
           });
+          toast.success("Your query has been sent successfully!");
         },
         (error) => {
           setSubmitStatus("error");
@@ -85,8 +87,9 @@ const ContactUsPage = () => {
       });
   };
 
+
   return (
-    <div className="min-h-screen bg-[#131314] text-gray-800 overflow-hidden">
+    <div id="contact" className="min-h-screen bg-[#131314] text-gray-800 overflow-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-2 w-full min-h-screen">
         <div className="bg-[#131314] w-full relative">
           <div className="absolute inset-0 opacity-10">
@@ -170,7 +173,6 @@ const ContactUsPage = () => {
                   onChange={handleInputChange}
                   placeholder="Your Email Address"
                   required
-                  readOnly
                   className="w-full bg-white/10 border border-white/20 rounded-xl py-4 pl-5 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm hover:bg-white/15"
                 />
               </div>
@@ -186,28 +188,30 @@ const ContactUsPage = () => {
                   className="w-full bg-white/10 border border-white/20 rounded-xl py-4 pl-5 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm hover:bg-white/15 resize-none"
                 ></textarea>
               </div>
-
-              {submitStatus === "success" && (
-                <p className="text-green-500">Message sent successfully!</p>
+              {/* {submitStatus === "success" && (
+                <p className="text-green-500">
+                  Your query has been sent successfully!
+                </p>
               )}
               {submitStatus === "error" && (
                 <p className="text-red-500">
                   {errorMessage || "Failed to send message. Please try again."}
                 </p>
-              )}
+              )} */}
+              
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 hover:cursor-pointer"
               >
                 {isSubmitting ? (
                   <>
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white "></div>
                     Sending...
                   </>
                 ) : (
-                  <>Send Message</>
+                  <>Send Query</>
                 )}
               </button>
             </form>
