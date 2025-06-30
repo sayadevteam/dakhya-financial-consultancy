@@ -1,11 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, Suspense } from "react";
 import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -27,12 +26,45 @@ import {
 import { FaEnvelope, FaWhatsapp } from "react-icons/fa";
 import services from "../../data/services";
 
+// Component to handle searchParams logic
+const SearchParamsHandler = ({ setFormData }) => {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const selectedServiceParam = searchParams.get("selectedService");
+    if (selectedServiceParam) {
+      try {
+        const { title, description } = JSON.parse(decodeURIComponent(selectedServiceParam));
+        const matchedService = services.find(
+          (service) => service.title === title && service.description === description
+        );
+
+        if (matchedService) {
+          setFormData((prev) => ({
+            ...prev,
+            service_info: `${matchedService.title}: ${matchedService.description}`,
+          }));
+
+          setTimeout(() => {
+            const contactSection = document.getElementById("contact");
+            if (contactSection) {
+              contactSection.scrollIntoView({ behavior: "smooth" });
+            }
+          }, 100);
+        }
+      } catch (error) {
+        console.error("Error parsing selectedService:", error);
+      }
+    }
+  }, [searchParams, setFormData]);
+
+  return null; // This component only handles side effects
+};
+
 const ContactUsPage = ({ selectedService }) => {
   const form = useRef();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [contactMethod, setContactMethod] = useState("");
-  const searchParams = useSearchParams(); 
-
   const [formData, setFormData] = useState({
     user_name: "",
     user_email: "",
@@ -54,34 +86,8 @@ const ContactUsPage = ({ selectedService }) => {
           contactSection.scrollIntoView({ behavior: "smooth" });
         }
       }, 100);
-    } else {
-      const selectedServiceParam = searchParams.get("selectedService");
-      if (selectedServiceParam) {
-        try {
-          const { title, description } = JSON.parse(decodeURIComponent(selectedServiceParam));
-          const matchedService = services.find(
-            (service) => service.title === title && service.description === description
-          );
-
-          if (matchedService) {
-            setFormData((prev) => ({
-              ...prev,
-              service_info: `${matchedService.title}: ${matchedService.description}`,
-            }));
-
-            setTimeout(() => {
-              const contactSection = document.getElementById("contact");
-              if (contactSection) {
-                contactSection.scrollIntoView({ behavior: "smooth" });
-              }
-            }, 100);
-          }
-        } catch (error) {
-          console.error("Error parsing selectedService:", error);
-        }
-      }
     }
-  }, [selectedService, searchParams]);
+  }, [selectedService]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -136,7 +142,7 @@ const ContactUsPage = ({ selectedService }) => {
         });
     } else if (contactMethod === "light") {
       // WhatsApp option
-      const phoneNumber = "918104635797"; // Same phone number as in WhatsAppButton
+      const phoneNumber = "918104635797";
       const message = `Name: ${formData.user_name}\nEmail: ${formData.user_email}\nPhone: ${formData.phone_no}\nService: ${formData.service_info}\nMessage: ${formData.message}`;
       const encodedMessage = encodeURIComponent(message);
       const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
@@ -166,11 +172,13 @@ const ContactUsPage = ({ selectedService }) => {
   };
 
   return (
-    <Suspense fallback={<div className="flex items-center justify-center h-screen text-white">Loading...</div>}>
     <div
       id="contact"
       className="min-h-screen bg-[#131314] text-gray-800 overflow-hidden"
     >
+      <Suspense fallback={null}>
+        <SearchParamsHandler setFormData={setFormData} />
+      </Suspense>
       <div className="grid grid-cols-1 lg:grid-cols-2 w-full min-h-screen">
         <div className="bg-[#131314] w-full relative">
           <div className="hidden lg:flex justify-center items-center h-screen px-8 relative">
@@ -248,7 +256,6 @@ const ContactUsPage = ({ selectedService }) => {
                 rows="5"
                 className="w-full bg-white/10 border border-white/20 rounded-xl py-4 px-5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 transition-all resize-none"
               />
-
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <button
@@ -305,7 +312,6 @@ const ContactUsPage = ({ selectedService }) => {
         </div>
       </div>
     </div>
-    </Suspense>
   );
 };
 
