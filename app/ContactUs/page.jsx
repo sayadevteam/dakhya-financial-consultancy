@@ -24,11 +24,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FaEnvelope, FaWhatsapp } from "react-icons/fa";
+import services from "../../data/services";
 
 const ContactUsPage = ({ selectedService }) => {
   const form = useRef();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [contactMethod, setContactMethod] = useState(""); // New state for contact method
+  const [contactMethod, setContactMethod] = useState("");
   const searchParams = useSearchParams();
 
   const [formData, setFormData] = useState({
@@ -52,6 +53,32 @@ const ContactUsPage = ({ selectedService }) => {
           contactSection.scrollIntoView({ behavior: "smooth" });
         }
       }, 100);
+    } else {
+      const selectedServiceParam = searchParams.get("selectedService");
+      if (selectedServiceParam) {
+        try {
+          const { title, description } = JSON.parse(decodeURIComponent(selectedServiceParam));
+          const matchedService = services.find(
+            (service) => service.title === title && service.description === description
+          );
+
+          if (matchedService) {
+            setFormData((prev) => ({
+              ...prev,
+              service_info: `${matchedService.title}: ${matchedService.description}`,
+            }));
+
+            setTimeout(() => {
+              const contactSection = document.getElementById("contact");
+              if (contactSection) {
+                contactSection.scrollIntoView({ behavior: "smooth" });
+              }
+            }, 100);
+          }
+        } catch (error) {
+          console.error("Error parsing selectedService:", error);
+        }
+      }
     }
   }, [selectedService, searchParams]);
 
@@ -106,11 +133,33 @@ const ContactUsPage = ({ selectedService }) => {
         .finally(() => {
           setIsSubmitting(false);
         });
+    } else if (contactMethod === "light") {
+      // WhatsApp option
+      const phoneNumber = "918104635797"; // Same phone number as in WhatsAppButton
+      const message = `Name: ${formData.user_name}\nEmail: ${formData.user_email}\nPhone: ${formData.phone_no}\nService: ${formData.service_info}\nMessage: ${formData.message}`;
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+      try {
+        window.open(whatsappLink, "_blank", "noopener,noreferrer");
+        toast.success("Redirecting to WhatsApp with your query!");
+        setFormData({
+          user_name: "",
+          user_email: "",
+          phone_no: "",
+          service_info: "",
+          message: "",
+        });
+        setContactMethod("");
+      } catch (error) {
+        console.error("Error opening WhatsApp link:", error);
+        toast.error("Failed to open WhatsApp");
+      } finally {
+        setIsSubmitting(false);
+      }
     } else {
-      // Handle WhatsApp or other methods
-      toast.info(
-        `Please submit via ${contactMethod === "light" ? "WhatsApp" : "selected method"}`
-      );
+      // No contact method selected
+      toast.error("Please select a contact method");
       setIsSubmitting(false);
     }
   };

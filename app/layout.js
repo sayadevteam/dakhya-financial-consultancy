@@ -29,7 +29,6 @@ export default function RootLayout({ children }) {
         {/* <Navbar/> */}
         <ReactLenis root/>
         {children}
-        <WhatsAppButton />
         <Toaster/>
         <Footer/>
       </body>
