@@ -4,19 +4,13 @@ import Image from "next/image";
 import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
-import {
-  FaBalanceScale,
-  FaChartLine,
-  FaDollarSign,
-  FaMoneyBillWave,
-  FaSeedling,
-  FaUserTie,
-} from "react-icons/fa";
-import services from "../../data/services"; // Assuming you have a services.js file with the service data
+import { useSearchParams } from "next/navigation";
+import services from "../../data/services";
 
-const ContactUsPage = ({ selectedService, setSelectedService }) => {
+const ContactUsPage = ({ selectedService }) => {
   const form = useRef();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const searchParams = useSearchParams();
 
   const [formData, setFormData] = useState({
     user_name: "",
@@ -27,31 +21,49 @@ const ContactUsPage = ({ selectedService, setSelectedService }) => {
   });
 
   useEffect(() => {
+    // Handle prop-based selectedService (from homepage)
     if (selectedService) {
-      const matchedService = services.find(
-        (service) =>
-          service.title === selectedService.title &&
-          service.description === selectedService.description
-      );
+      setFormData((prev) => ({
+        ...prev,
+        service_info: `${selectedService.title}: ${selectedService.description}`,
+      }));
 
-      if (matchedService) {
-        setFormData((prev) => ({
-          ...prev,
-          service_info: `${matchedService.title}: ${matchedService.description}`,
-        }));
-
-        setTimeout(() => {
-          const contactSection = document.getElementById("contact");
-          if (contactSection) {
-            contactSection.scrollIntoView({ behavior: "smooth" });
-          }
-        }, 100);
-
-        // Reset selectedService after setting formData to prevent re-triggering
-        setSelectedService(null);
-      }
+      setTimeout(() => {
+        const contactSection = document.getElementById("contact");
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
     }
-  }, [selectedService, setSelectedService]);
+    // Handle query parameter for standalone /ContactUs route
+    // else {
+    //   const selectedServiceParam = searchParams.get("selectedService");
+    //   if (selectedServiceParam) {
+    //     try {
+    //       const { title, description } = JSON.parse(decodeURIComponent(selectedServiceParam));
+    //       const matchedService = services.find(
+    //         (service) => service.title === title && service.description === description
+    //       );
+
+    //       if (matchedService) {
+    //         setFormData((prev) => ({
+    //           ...prev,
+    //           service_info: `${matchedService.title}: ${matchedService.description}`,
+    //         }));
+
+    //         setTimeout(() => {
+    //           const contactSection = document.getElementById("contact");
+    //           if (contactSection) {
+    //             contactSection.scrollIntoView({ behavior: "smooth" });
+    //           }
+    //         }, 100);
+    //       }
+    //     } catch (error) {
+    //       console.error("Error parsing selectedService:", error);
+    //     }
+    //   }
+    // }
+  }, [selectedService, searchParams]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -105,7 +117,6 @@ const ContactUsPage = ({ selectedService, setSelectedService }) => {
       className="min-h-screen bg-[#131314] text-gray-800 overflow-hidden"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 w-full min-h-screen">
-        {/* Left Side Image */}
         <div className="bg-[#131314] w-full relative">
           <div className="hidden lg:flex justify-center items-center h-screen px-8 relative">
             <div className="relative z-10 animate-float">
@@ -119,8 +130,6 @@ const ContactUsPage = ({ selectedService, setSelectedService }) => {
             </div>
           </div>
         </div>
-
-        {/* Form Side */}
         <div className="text-white flex items-center justify-center px-8 py-12">
           <div className="w-full max-w-lg">
             <div className="text-center mb-12">
@@ -133,14 +142,12 @@ const ContactUsPage = ({ selectedService, setSelectedService }) => {
                 your financial needs.
               </p>
             </div>
-
             <form ref={form} onSubmit={sendEmail} className="space-y-6">
               <input
                 type="hidden"
                 name="from_email"
                 value={formData.user_email}
               />
-
               <input
                 type="text"
                 name="user_name"
@@ -150,7 +157,6 @@ const ContactUsPage = ({ selectedService, setSelectedService }) => {
                 required
                 className="w-full bg-white/10 border border-white/20 rounded-xl py-4 px-5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 transition-all"
               />
-
               <input
                 type="email"
                 name="user_email"
@@ -160,7 +166,6 @@ const ContactUsPage = ({ selectedService, setSelectedService }) => {
                 required
                 className="w-full bg-white/10 border border-white/20 rounded-xl py-4 px-5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 transition-all"
               />
-
               <input
                 type="tel"
                 name="phone_no"
@@ -170,7 +175,6 @@ const ContactUsPage = ({ selectedService, setSelectedService }) => {
                 required
                 className="w-full bg-white/10 border border-white/20 rounded-xl py-4 px-5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 transition-all"
               />
-
               <textarea
                 name="service_info"
                 value={formData.service_info}
@@ -178,9 +182,8 @@ const ContactUsPage = ({ selectedService, setSelectedService }) => {
                 placeholder="Service Info"
                 required
                 rows="3"
-                className="w-full bg-white/10 border border-white/20 rounded-xl py-4 px-5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 transition-all resize-none"
+                className="w-full h-45 bg-white/10 border border-white/20 rounded-xl py-4 px-5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 transition-all resize-none"
               />
-
               <textarea
                 name="message"
                 value={formData.message}
@@ -190,7 +193,6 @@ const ContactUsPage = ({ selectedService, setSelectedService }) => {
                 rows="5"
                 className="w-full bg-white/10 border border-white/20 rounded-xl py-4 px-5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 transition-all resize-none"
               />
-
               <button
                 type="submit"
                 disabled={isSubmitting}
