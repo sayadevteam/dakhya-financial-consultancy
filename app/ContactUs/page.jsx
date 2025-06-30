@@ -30,7 +30,7 @@ const ContactUsPage = ({ selectedService }) => {
   const form = useRef();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [contactMethod, setContactMethod] = useState("");
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams(); 
 
   const [formData, setFormData] = useState({
     user_name: "",
