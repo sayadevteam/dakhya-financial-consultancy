@@ -5,11 +5,30 @@ import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
-import services from "../../data/services";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { FaEnvelope, FaWhatsapp } from "react-icons/fa";
 
 const ContactUsPage = ({ selectedService }) => {
   const form = useRef();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [contactMethod, setContactMethod] = useState(""); // New state for contact method
   const searchParams = useSearchParams();
 
   const [formData, setFormData] = useState({
@@ -21,7 +40,6 @@ const ContactUsPage = ({ selectedService }) => {
   });
 
   useEffect(() => {
-    // Handle prop-based selectedService (from homepage)
     if (selectedService) {
       setFormData((prev) => ({
         ...prev,
@@ -35,34 +53,6 @@ const ContactUsPage = ({ selectedService }) => {
         }
       }, 100);
     }
-    // Handle query parameter for standalone /ContactUs route
-    // else {
-    //   const selectedServiceParam = searchParams.get("selectedService");
-    //   if (selectedServiceParam) {
-    //     try {
-    //       const { title, description } = JSON.parse(decodeURIComponent(selectedServiceParam));
-    //       const matchedService = services.find(
-    //         (service) => service.title === title && service.description === description
-    //       );
-
-    //       if (matchedService) {
-    //         setFormData((prev) => ({
-    //           ...prev,
-    //           service_info: `${matchedService.title}: ${matchedService.description}`,
-    //         }));
-
-    //         setTimeout(() => {
-    //           const contactSection = document.getElementById("contact");
-    //           if (contactSection) {
-    //             contactSection.scrollIntoView({ behavior: "smooth" });
-    //           }
-    //         }, 100);
-    //       }
-    //     } catch (error) {
-    //       console.error("Error parsing selectedService:", error);
-    //     }
-    //   }
-    // }
   }, [selectedService, searchParams]);
 
   const handleInputChange = (e) => {
@@ -71,6 +61,10 @@ const ContactUsPage = ({ selectedService }) => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleContactMethodChange = (value) => {
+    setContactMethod(value);
   };
 
   const sendEmail = (e) => {
@@ -83,32 +77,42 @@ const ContactUsPage = ({ selectedService }) => {
       return;
     }
 
-    emailjs
-      .sendForm(
-        process.env.NEXT_PUBLIC_SERVICE_ID,
-        process.env.NEXT_PUBLIC_TEMPLATE_ID,
-        form.current,
-        {
-          publicKey: process.env.NEXT_PUBLIC_USER_ID,
-        }
-      )
-      .then(() => {
-        toast.success("Your query has been sent successfully!");
-        setFormData({
-          user_name: "",
-          user_email: "",
-          phone_no: "",
-          service_info: "",
-          message: "",
+    if (contactMethod === "dark") {
+      // Email option
+      emailjs
+        .sendForm(
+          process.env.NEXT_PUBLIC_SERVICE_ID,
+          process.env.NEXT_PUBLIC_TEMPLATE_ID,
+          form.current,
+          {
+            publicKey: process.env.NEXT_PUBLIC_USER_ID,
+          }
+        )
+        .then(() => {
+          toast.success("Your query has been sent successfully!");
+          setFormData({
+            user_name: "",
+            user_email: "",
+            phone_no: "",
+            service_info: "",
+            message: "",
+          });
+          setContactMethod("");
+        })
+        .catch((error) => {
+          console.error("EmailJS error:", error);
+          toast.error("Failed to send message");
+        })
+        .finally(() => {
+          setIsSubmitting(false);
         });
-      })
-      .catch((error) => {
-        console.error("EmailJS error:", error);
-        toast.error("Failed to send message");
-      })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+    } else {
+      // Handle WhatsApp or other methods
+      toast.info(
+        `Please submit via ${contactMethod === "light" ? "WhatsApp" : "selected method"}`
+      );
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -173,7 +177,7 @@ const ContactUsPage = ({ selectedService }) => {
                 onChange={handleInputChange}
                 placeholder="Your Phone Number"
                 required
-                className="w-full bg-white/10 border border-white/20 rounded-xl py-4 px-5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 transition-all"
+                className="w-full bg-white/10 border border-white/20 rounded-xl py-4 px-5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 transition-all text-bold"
               />
               <textarea
                 name="service_info"
@@ -193,13 +197,58 @@ const ContactUsPage = ({ selectedService }) => {
                 rows="5"
                 className="w-full bg-white/10 border border-white/20 rounded-xl py-4 px-5 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 transition-all resize-none"
               />
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-4 rounded-xl transition-all hover:scale-105 disabled:opacity-50"
-              >
-                {isSubmitting ? "Sending..." : "Send Query"}
-              </button>
+
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-4 rounded-xl transition-all hover:scale-105 disabled:opacity-50"
+                  >
+                    {isSubmitting ? "Sending..." : "Send Query"}
+                  </button>
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white border border-gray-700 shadow-2xl max-w-lg mx-auto rounded-2xl p-6">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="text-xl font-semibold text-gray-100">
+                      Send Query via
+                    </AlertDialogTitle>
+                    <Select
+                      onValueChange={handleContactMethodChange}
+                      value={contactMethod}
+                    >
+                      <SelectTrigger className="w-[180px] bg-gray-800 border-gray-600 text-white rounded-lg cursor-pointer focus:ring-2 focus:ring-blue-500">
+                        <SelectValue placeholder="Select contact method" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-gray-800 text-white border-gray-700 rounded-lg">
+                        <SelectItem
+                          value="light"
+                          className="flex items-center gap-2 hover:bg-gray-700"
+                        >
+                          <FaWhatsapp className="text-green-500" /> WhatsApp
+                        </SelectItem>
+                        <SelectItem
+                          value="dark"
+                          className="flex items-center gap-2 hover:bg-gray-700"
+                        >
+                          <FaEnvelope className="text-blue-500" /> Email
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter className="mt-4">
+                    <AlertDialogCancel className="bg-gray-700 text-white border-gray-600 hover:bg-gray-600 rounded-lg px-4 py-2 cursor-pointer">
+                      Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                      className="bg-blue-600 text-white hover:bg-blue-700 rounded-lg px-4 py-2 cursor-pointer"
+                      onClick={sendEmail}
+                    >
+                      Continue
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </form>
           </div>
         </div>
