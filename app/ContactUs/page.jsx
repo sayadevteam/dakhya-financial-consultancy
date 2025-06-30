@@ -5,6 +5,7 @@ import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -165,6 +166,7 @@ const ContactUsPage = ({ selectedService }) => {
   };
 
   return (
+    <Suspense fallback={<div className="flex items-center justify-center h-screen text-white">Loading...</div>}>
     <div
       id="contact"
       className="min-h-screen bg-[#131314] text-gray-800 overflow-hidden"
@@ -303,6 +305,7 @@ const ContactUsPage = ({ selectedService }) => {
         </div>
       </div>
     </div>
+    </Suspense>
   );
 };
 
