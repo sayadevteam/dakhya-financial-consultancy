@@ -4,7 +4,6 @@ import Image from "next/image";
 import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
-import { useSearchParams } from "next/navigation";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,6 +24,7 @@ import {
 } from "@/components/ui/select";
 import { FaEnvelope, FaWhatsapp } from "react-icons/fa";
 import services from "../../data/services";
+import { useSearchParams } from "next/navigation";
 
 const ContactUsPage = ({ selectedService }) => {
   const form = useRef();
